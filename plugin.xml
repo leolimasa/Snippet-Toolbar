@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Snippet Toolbar"
+            id="snippettoolbar">
+      </category>
+      <view
+            name="Snippet Toolbar"
+            icon="icons/sample.gif"
+            category="snippettoolbar"
+            class="snippettoolbar.views.ToolbarView"
+            id="snippettoolbar.views.ToolbarView">
+      </view>
+      <view
+            category="snippettoolbar"
+            class="snippettoolbar.views.SampleView"
+            icon="icons/sample.gif"
+            id="snippettoolbar.views.SampleView"
+            name="Sample View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="snippettoolbar.views.ResourceManagerView">
+         </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="snippettoolbar.views.SampleView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.TaskList">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="snippettoolbar.preferences.PreferencePage"
+            id="snippettoolbar.preferences.PreferencePage"
+            name="Snippet Toolbar">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="snippettoolbar.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="snippettoolbar"
+            name="Sample Wizards">
+      </category>
+      <wizard
+            category="snippettoolbar"
+            class="snippettoolbar.wizards.SampleNewWizard"
+            icon="icons/sample.gif"
+            id="snippettoolbar.wizards.SampleNewWizard"
+            name="Multi-page Editor file">
+      </wizard>
+   </extension>
+
+</plugin>
