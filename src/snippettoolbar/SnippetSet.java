@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ExpandBar;
@@ -39,6 +40,11 @@ public class SnippetSet {
 
 	public SnippetSet() {
 		
+	}
+	
+	public GridData getLabelLayout() {
+		GridData labelLayout = new GridData(GridData.FILL_HORIZONTAL);
+		return labelLayout;
 	}
 	
 	public void readDir(File file) throws IOException {
@@ -81,7 +87,7 @@ public class SnippetSet {
 		
 		// generates the buttons
 		for (Snippet s : snippets) {
-			s.createLabel(item, toolbarView);
+			s.createLabel(item, toolbarView, getLabelLayout());
 		}
 		
 		expandItem = item;
@@ -90,7 +96,7 @@ public class SnippetSet {
 	}
 	
 	public void addSnippetToToolbar(Snippet snippet, ToolbarView toolbar) {
-		snippet.createLabel(expandItem, toolbar);
+		snippet.createLabel(expandItem, toolbar, getLabelLayout());
 		addSnippet(snippet);
 	}
 	
@@ -119,6 +125,10 @@ public class SnippetSet {
 		if (!folder.exists()) {
 			folder.mkdir();
 		}
+	}
+	
+	public boolean hasSnippet(Snippet snippet) {
+		return snippets.contains(snippet);
 	}
 	
 	public Snippet getSnippetByName(String name) {

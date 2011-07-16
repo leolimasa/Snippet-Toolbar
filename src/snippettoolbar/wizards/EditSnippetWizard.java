@@ -27,7 +27,6 @@ public class EditSnippetWizard extends Wizard {
 	
 	public void setSnippet(Snippet snippet) {
 		this.snippet = snippet;
-		addPages();
 	}
 	
 	@Override

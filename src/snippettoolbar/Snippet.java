@@ -54,7 +54,6 @@ public class Snippet {
 
 	public void setText(String text) {
 		this.text = text;
-		
 	}
 	
 	public void save() {
@@ -76,17 +75,31 @@ public class Snippet {
 
 	public void setName(String name) {
 		this.name = name;
+		updateLabel();
 		
+		
+		// if we have a file for this snippet, rename the file
+		if (file != null) {
+			file.renameTo(generateFileObject());
+		}
+	}
+	
+	public void updateLabel() {
 		if (label != null) {
 			label.setText(name);
+			label.update();
 		}
 	}
 	
 	public void updateFilePath() {
+		file = generateFileObject();
+	}
+	
+	public File generateFileObject() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		String folder = store.getString(PreferenceConstants.SNIPPET_DIRECTORY);
 		String extension = store.getString(PreferenceConstants.SNIPPET_EXTENSION);
-		file = new File(folder, set.getName() + File.separator + getName() + extension);
+		return new File(folder, set.getName() + File.separator + getName() + extension);
 	}
 
 	public File getFile() {
@@ -126,13 +139,14 @@ public class Snippet {
 		  }
 	}
 	
-	public void createLabel(ExpandItem expand, final ToolbarView toolbar) {		
+	public void createLabel(ExpandItem expand, final ToolbarView toolbar, Object layout) {		
 		// setup drag and drop
 		int operations = DND.DROP_MOVE | DND.DROP_COPY;
 		Transfer[] types = new Transfer[] {TextTransfer.getInstance()};
 		
 		// creates the label
 		Label lbl = new Label((Composite) expand.getControl(), SWT.NONE);
+		lbl.setLayoutData(layout);
 		lbl.setText(name);
 		
 		DragSource ds = new DragSource(lbl, operations);

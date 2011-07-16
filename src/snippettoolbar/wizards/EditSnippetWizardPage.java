@@ -3,6 +3,7 @@ package snippettoolbar.wizards;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -42,6 +43,7 @@ public class EditSnippetWizardPage extends WizardPage {
 		if (snippet == null) {
 			snippet = new Snippet();
 		}
+		String code = txtCode.getText();
 		snippet.setName(txtName.getText());
 		snippet.setText(txtCode.getText());
 		return snippet;
@@ -54,18 +56,28 @@ public class EditSnippetWizardPage extends WizardPage {
 		container.setLayout(layout);
 		layout.numColumns = 2;
 		
+		GridData txtLayout = new GridData(GridData.FILL_HORIZONTAL);
+		
+		GridData txtCodeLayout = new GridData(GridData.FILL_HORIZONTAL);
+		txtCodeLayout.grabExcessHorizontalSpace = true;
+		txtCodeLayout.verticalAlignment = GridData.FILL_VERTICAL;
+		txtCodeLayout.heightHint = 300;
+		
 		lblFolder = new Label(container, SWT.NONE);
 		lblFolder.setText("Folder");
 		txtFolder = new Text(container, SWT.BORDER);
+		txtFolder.setLayoutData(txtLayout);
 		
 		lblName = new Label(container, SWT.NONE);
 		lblName.setText("Name");
 		txtName = new Text(container, SWT.BORDER);
+		txtName.setLayoutData(txtLayout);
 		
 		lblCode = new Label(container, SWT.NONE);
 		lblCode.setText("Code");
 		txtCode = new Text(container, SWT.BORDER | SWT.MULTI);
 		txtCode.setSize(100, 500);
+		txtCode.setLayoutData(txtCodeLayout);
 		setControl(container);
 		
 		if (snippet != null) {

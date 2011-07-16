@@ -79,20 +79,15 @@ public class ToolbarView extends ViewPart {
 			newSet(set);
 			snippet.setSet(set);
 			set.addSnippetToToolbar(snippet,this);
-			snippet.updateFilePath();
-			snippet.save();
-			
-		} else if (set.hasSnippetWithName(snippet.getName())) {
-			Snippet s = set.getSnippetByName(snippet.getName());
-			s.setName(snippet.getName());
-			s.setText(snippet.getText());
-			s.save();
+		} else if (set.hasSnippet(snippet)) {
+			snippet.setName(snippet.getName());
+			snippet.setText(snippet.getText());
 		} else {
 			// we have a set but no snippet in it
 			set.addSnippetToToolbar(snippet, this);
-			snippet.updateFilePath();
-			snippet.save();
 		}
+		snippet.updateFilePath();
+		snippet.save();
 	}
 	
 	public void newSet(SnippetSet set) {
